@@ -23,25 +23,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
             currQuestion.text,
             style: const TextStyle(color: Colors.white),
           ),
-          const SizedBox(
-            height: 30,
-          ),
-          AnswerButton(
-            answerText: currQuestion.answers[0],
-            onTap: () {},
-          ),
-          AnswerButton(
-            answerText: currQuestion.answers[1],
-            onTap: () {},
-          ),
-          AnswerButton(
-            answerText: currQuestion.answers[2],
-            onTap: () {},
-          ),
-          AnswerButton(
-            answerText: currQuestion.answers[3],
-            onTap: () {},
-          ),
+          const SizedBox(height: 30),
+          ...currQuestion.answers.map(
+            (answer) {
+              return AnswerButton(answerText: answer, onTap: () {});
+            },
+          )
         ],
       ),
     );
