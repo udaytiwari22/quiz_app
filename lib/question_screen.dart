@@ -11,25 +11,38 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
+  var currQuestionIndex=0;
+  answerQuestion(){
+    setState(() {
+      //currQuestionIndex=currQuestionIndex+1;
+      currQuestionIndex++;
+    });
+  }
   @override
   Widget build(context) {
-    final currQuestion = questions[0];
+    final currQuestion = questions[currQuestionIndex];
     return SizedBox(
       width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            currQuestion.text,
-            style: const TextStyle(color: Colors.white),
-          ),
-          const SizedBox(height: 30),
-          ...currQuestion.answers.map(
-            (answer) {
-              return AnswerButton(answerText: answer, onTap: () {});
-            },
-          )
-        ],
+      child: Container(
+        margin: const EdgeInsets.all(40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          
+          children: [
+            Text(
+              currQuestion.text,
+              style: const TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 30),
+            ...currQuestion.getSuffledAnswers().map(
+              (answer) {
+                return AnswerButton(answerText: answer, onTap: answerQuestion);
+              },
+            )
+          ],
+        ),
       ),
     );
   }
