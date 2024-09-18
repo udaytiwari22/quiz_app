@@ -27,14 +27,14 @@ class StartScreen extends StatelessWidget {
           const Text(
             "Flutter Quiz App",
             style: TextStyle(
-                color: Color.fromARGB(255, 216, 198, 239), fontSize: 30),
+                color: Color.fromARGB(255, 229, 219, 243), fontSize: 30),
           ),
           const SizedBox(height: 25),
           OutlinedButton.icon(
             onPressed: startQuiz,
             
             style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.white,
+              foregroundColor: const Color.fromARGB(255, 245, 244, 245),
             ),
             icon: const Icon(Icons.arrow_right_alt),
             label: const Text("Start Quiz"),
