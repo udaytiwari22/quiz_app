@@ -1,27 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/questions.dart';
+import 'package:quiz_app/question_summary.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({
-    super.key,
-    required this.chooseAnswers,
-  });
+  const ResultScreen({super.key, required this.chooseAnswers});
   final List<String> chooseAnswers;
+
   List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
+
     for (var i = 0; i < chooseAnswers.length; i++) {
-      summary.add({
-        'question_index': i,
-        'question': questions[i].text,
-        'correct_answer': questions[i].answers[0],
-        'user_answer':chooseAnswers[i]
-      });
+      summary.add(
+        {
+          'question_index': i,
+          'question': questions[i].text,
+          'correct_answer': questions[i].answers[0],
+          'user_answer': chooseAnswers[i]
+        },
+      );
     }
     return summary;
   }
 
   @override
-  build(context) {
+  Widget build(context) {
+    final summarydata=getSummaryData();
+    final numTotalQuestion=questions.length;
+    final numCorrectQuestion=summarydata.where((data){
+      return data['user_answer']==data['correct_answer'];
+    }).length;
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -29,14 +36,14 @@ class ResultScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("yoyou yoyou , horo ,horo, horo,horo horo"),
+            Text("You answered $numCorrectQuestion out of $numTotalQuestion questions correctly"),
             const SizedBox(height: 40),
-            const Text("Something answered"),
+            QuestionSummary(summarydata),
             const SizedBox(height: 40),
             TextButton(
                 onPressed: () {},
                 child: const Text(
-                  "horo horo horo horo horo",
+                  "Restart Quiz",
                   style: TextStyle(color: Colors.white),
                 ))
           ],
